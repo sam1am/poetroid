@@ -127,7 +127,7 @@ class CaptureScreen(tk.Toplevel):
         self.geometry('480x800')  # Set the size
         self.main_screen = main_screen  # Reference to MainScreen
         self.status_label = tk.Label(self, text='Thinking...', font=(
-            'Arial', 24), wraplength=480)  # Larger font and wrap context
+            'Arial', 12), wraplength=480)  # Larger font and wrap context
         self.status_label.pack()
 
     # def start_processing(self):
@@ -223,7 +223,7 @@ class CaptureScreen(tk.Toplevel):
         cap.release()
 
     def display_response(self, response_text):
-        self.status_label['text'] = response_text
+        # self.status_label['text'] = response_text
         self.status_label['wraplength'] = 480  # Wrap the result
         # Handle printing
         if self.main_screen.printing_enabled:
@@ -239,6 +239,7 @@ class CaptureScreen(tk.Toplevel):
 
     def reset_to_main(self):
         self.master.mainloop()  # Restart the tkinter mainloop before destroy
+        self.capture_initiated = False
         self.destroy()  # Close the capture screen
         self.main_screen.master.deiconify()  # Show the main screen
         self.main_screen.update_ui()
