@@ -23,7 +23,7 @@ class CaptureScreen(tk.Toplevel):
         # Update the status label immediately
         self.status_label['text'] = 'Thinking...'
         self.update()  # Force the screen to update
-        camera_index = 1  # Replace with the correct camera index from your tests
+        camera_index = 0  # Replace with the correct camera index from your tests
         cap = cv2.VideoCapture(camera_index)
         if not cap.isOpened():
             self.status_label['text'] = f"Error: Could not open camera at index {camera_index}."
