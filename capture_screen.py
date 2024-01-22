@@ -7,6 +7,7 @@ import time
 import uuid
 import os
 import logging
+# import sys
 
 
 class CaptureScreen(tk.Toplevel):
@@ -37,15 +38,19 @@ class CaptureScreen(tk.Toplevel):
 
         # Warm-up phase: Capture and discard frames for the warm-up period
         print("Warming up the camera...")
+        self.status_label['text'] = 'Warming up the camera...'
         while time.time() - start_time < warm_up_time:
             ret, frame = cap.read()
             if not ret:
                 self.status_label['text'] = "Error: Could not read frame from the camera during warm-up."
                 cap.release()
                 return
-
+        self.status_label['text'] = 'Ready to capture.'
         _, buffer = cv2.imencode('.jpg', frame)
+        self.status_label['text'] = 'Capturing...'
         binary_image = buffer.tobytes()
+        self.status_label['text'] = 'Processing...'
+        print('\a')
 
         # Generate a safe UUID for the filename
         unique_filename = str(uuid.uuid4()) + '.jpg'
