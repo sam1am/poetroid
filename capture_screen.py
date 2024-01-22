@@ -22,12 +22,15 @@ class CaptureScreen(tk.Toplevel):
     def capture_and_process_image(self):
         # Update the status label immediately
         self.status_label['text'] = 'Thinking...'
-        self.update()  # Force the screen to update
-        camera_index = 0  # Replace with the correct camera index from your tests
+        self.update()  
+        camera_index = 0  
         cap = cv2.VideoCapture(camera_index)
         if not cap.isOpened():
-            self.status_label['text'] = f"Error: Could not open camera at index {camera_index}."
-            return
+            camera_index = 1
+            cap = cv2.VideoCapture(camera_index)
+            if not cap.isOpened():
+                self.status_label['text'] = 'Error: Could not open camera.'
+                return
 
         warm_up_time = 2  # Warm-up time in seconds
         start_time = time.time()
