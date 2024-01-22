@@ -112,7 +112,7 @@ class MainScreen(tk.Frame):
             self.toggle_item(direction)
     
     def shutter_key_down(self, event):
-        if not self.capture_initiated and not hasattr(self, 'capture_screen'):
+        if not self.capture_initiated:
             self.capture_initiated = True
             self.capture_screen = CaptureScreen(self.master, self)
             self.master.after(0, self.capture_screen.capture_and_process_image)
