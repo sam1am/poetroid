@@ -76,6 +76,9 @@ class MainScreen(tk.Frame):
         # Keep a reference to avoid garbage collection
         self.item_image_label.photo = photo
         self.item_image_label.config(image=photo)
+        self.item_image_label.pack_forget()
+        self.item_image_label.pack(
+            side=tk.TOP, anchor=tk.CENTER, fill=tk.BOTH, expand=True)
 
     def toggle_focus(self):
         self.focus_on_category = not self.focus_on_category
