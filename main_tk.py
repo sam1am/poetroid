@@ -120,25 +120,20 @@ class MainScreen(tk.Frame):
             print("Capture is already initiated or capture_screen still exists.")
 
 
-    
 class CaptureScreen(tk.Toplevel):
     def __init__(self, master, main_screen):
         super().__init__(master)
-        self.geometry('480x800')  # Set the size
-        self.main_screen = main_screen  # Reference to MainScreen
-        self.status_label = tk.Label(self, text='Thinking...', font=(
-            'Arial', 12), wraplength=480)  # Larger font and wrap context
+        self.geometry('480x800')
+        self.main_screen = main_screen
+        self.status_label = tk.Label(
+            self, text='Thinking...', font=('Arial', 12), wraplength=480)
         self.status_label.pack()
+        self.capture_and_process_image()
 
-    # def start_processing(self):
-    #     camera_index = 0  # Replace with the correct camera index from your tests
-    #     cap = cv2.VideoCapture(camera_index)
-    #     if not cap.isOpened():
-    #         # Load a test image if no camera is found
-    #         self.display_test_image('./poetroid.png')
-    #         return
-   
     def capture_and_process_image(self):
+        # Update the status label immediately
+        self.status_label['text'] = 'Thinking...'
+        self.update()  # Force the screen to update
         camera_index = 1  # Replace with the correct camera index from your tests
         cap = cv2.VideoCapture(camera_index)
         if not cap.isOpened():
@@ -233,15 +228,12 @@ class CaptureScreen(tk.Toplevel):
             except IOError as e:
                 logging.error(f'Print: Failed to print to /dev/usb/lp0: {e}')
                 self.status_label['text'] = 'Failed to print.'
-        go_back_button = tk.Button(
-            self, text='Go back', command=self.reset_to_main)
-        go_back_button.pack()
+        self.reset_to_main()
 
     def reset_to_main(self):
-        self.master.mainloop()  # Restart the tkinter mainloop before destroy
+        # self.master.mainloop()  # Restart the tkinter mainloop before destroy
         self.capture_initiated = False
-        self.destroy()  # Close the capture screen
-        self.main_screen.master.deiconify()  # Show the main screen
+        self.destroy()  # Close the capture screen and reset
         self.main_screen.update_ui()
 
 
