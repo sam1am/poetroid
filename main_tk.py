@@ -112,17 +112,22 @@ class MainScreen(tk.Frame):
             self.toggle_item(direction)
     
     def shutter_key_down(self, event):
-        if not self.capture_initiated:
+        if not self.capture_initiated and not hasattr(self, 'capture_screen'):
             self.capture_initiated = True
             self.capture_screen = CaptureScreen(self.master, self)
             self.master.after(0, self.capture_screen.capture_and_process_image)
+        else:
+            print("Capture is already initiated or capture_screen still exists.")
+
 
     
 class CaptureScreen(tk.Toplevel):
     def __init__(self, master, main_screen):
         super().__init__(master)
+        self.geometry('480x800')  # Set the size
         self.main_screen = main_screen  # Reference to MainScreen
-        self.status_label = tk.Label(self, text='Thinking...')
+        self.status_label = tk.Label(self, text='Thinking...', font=(
+            'Arial', 24), wraplength=480)  # Larger font and wrap context
         self.status_label.pack()
 
     # def start_processing(self):
@@ -217,10 +222,9 @@ class CaptureScreen(tk.Toplevel):
         # Close the video capture
         cap.release()
 
-
     def display_response(self, response_text):
         self.status_label['text'] = response_text
-
+        self.status_label['wraplength'] = 480  # Wrap the result
         # Handle printing
         if self.main_screen.printing_enabled:
             try:
@@ -229,11 +233,16 @@ class CaptureScreen(tk.Toplevel):
             except IOError as e:
                 logging.error(f'Print: Failed to print to /dev/usb/lp0: {e}')
                 self.status_label['text'] = 'Failed to print.'
-
-        # Add a button to go back to the main screen
-        go_back_button = tk.Button(self, text='Go back', command=self.reset_to_main)
-
+        go_back_button = tk.Button(
+            self, text='Go back', command=self.reset_to_main)
         go_back_button.pack()
+
+    def reset_to_main(self):
+        self.master.mainloop()  # Restart the tkinter mainloop before destroy
+        self.destroy()  # Close the capture screen
+        self.main_screen.master.deiconify()  # Show the main screen
+        self.main_screen.update_ui()
+
 
     def display_test_image(self, image_path):
         img = Image.open(image_path)
@@ -247,10 +256,6 @@ class CaptureScreen(tk.Toplevel):
         reset_button = tk.Button(self, text='Reset', command=self.reset_to_main)
         reset_button.pack()
 
-    def reset_to_main(self):
-        self.destroy()  # Close the capture screen
-        self.main_screen.master.deiconify()  # Show the main screen
-        self.main_screen.update_ui()
 
 
 class PoetroidApp(tk.Tk):
@@ -258,7 +263,7 @@ class PoetroidApp(tk.Tk):
         super().__init__()
         self.geometry('480x800')
         self.main_screen = MainScreen(self)
-        # self.attributes('-fullscreen', True)   
+        self.attributes('-fullscreen', True)   
              
 
 if __name__ == '__main__':
