@@ -1,6 +1,6 @@
 categories:
   - name: "Poetry"
-    emoji: 'Poetry'
+    emoji: "📜"
     prompts:
       - prompt: "You will be provided a description of an image. Your job is to write about the subject of the image in the style of Keats."
         imagefilename: "keats.jpg"
@@ -39,24 +39,24 @@ categories:
 
       
   - name: "Comedy"
-    # emoji: "🎭"
+    emoji: "🎭"
     # emoji: 'Performing Arts'
-    emoji: 'ComedyTragedy'
+    # emoji: 'ComedyTragedy'
     prompts:
-      - prompt: "Do a Comedy Central-style roast of the subject of this image."
+      - prompt: "Do a Comedy Central-style roast of the subject of the image described."
         imagefilename: "roast.jpg"
       - prompt: "Write some hilarious observational humor based on the following image description."
         imagefilename: "observational.jpg"
-      - prompt: "Overanalyze this."
+      - prompt: "Overanalyze this scene based on the description."
         imagefilename: "overanalyze.jpg"
-      - prompt: "Come up with a satirical critique of the subject in this image."
+      - prompt: "Come up with a satirical critique of the subject in the described image scene."
         imagefilename: "satire.jpg"
       - prompt: "Imagine the subject of this image in a slapstick scenario."
         imagefilename: "slapstick.jpg"
 
   - name: "Scientific"
-    # emoji: "🔬"
-    emoji: 'Look'
+    emoji: "🔬"
+    # emoji: 'Look'
     prompts:
       - prompt: "Describe the scientific phenomena present in this scene."
         imagefilename: "science_scene.jpg"
@@ -70,8 +70,8 @@ categories:
         imagefilename: "physics.jpg"
 
   - name: "Other"
-    # emoji: "🌀"
-    emoji: '?'
+    emoji: "🌀"
+    # emoji: '?'
     prompts:
       - prompt: "Write a compliment about the subject of this photo."
         imagefilename: "compliment.jpg"
