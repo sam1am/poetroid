@@ -134,7 +134,7 @@ class CaptureScreen(tk.Toplevel):
     #         return
    
     def capture_and_process_image(self):
-        camera_index = 0  # Replace with the correct camera index from your tests
+        camera_index = 1  # Replace with the correct camera index from your tests
         cap = cv2.VideoCapture(camera_index)
         if not cap.isOpened():
             self.status_label['text'] = f"Error: Could not open camera at index {camera_index}."
