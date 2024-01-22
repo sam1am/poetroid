@@ -162,7 +162,8 @@ class CaptureScreen(tk.Toplevel):
             os.makedirs(uploads_dir)  # Create the uploads directory if it doesn't exist
         
         file_path = os.path.join(uploads_dir, unique_filename)
-
+        # Account for upside down camera.
+        frame = cv2.rotate(frame, cv2.ROTATE_180)
         # Save the image to the ./uploads directory with the UUID filename
         with open(file_path, 'wb') as f:
             f.write(binary_image)
