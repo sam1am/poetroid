@@ -1,0 +1,5 @@
+models:
+  - name: "Sphynx"
+    model: "bakllava"
+  - name: "Tater"
+    model: "llava"
