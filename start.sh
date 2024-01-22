@@ -16,4 +16,4 @@ if [ ! -d "$APP_DIR/venv" ]; then
 fi
 
 # Start application
-"$APP_DIR/venv/bin/python3" "$APP_DIR/main_tk.py"
+"$APP_DIR/venv/bin/python3" "$APP_DIR/poetroid_app.py"
