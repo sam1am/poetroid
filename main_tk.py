@@ -182,7 +182,7 @@ class CaptureScreen(tk.Toplevel):
         # print("Sending request with prompt: " + prompt)
         try:
             response = requests.post(
-                "http://localhost:8000/behold/",  
+                "https://roast.wayr.app/behold/",  
                 data={
                     "prompt": "Describe this image in as much detail as possible. Be as verbose as possible. List every item you see and describe it verbosely.",
                     "file": base64_string
@@ -204,7 +204,7 @@ class CaptureScreen(tk.Toplevel):
         try:
             response = requests.post(
                 #make prompt url safe
-                "http://localhost:8000/infer/?prompt=" + prompt,
+                "https://roast.wayr.app/infer/?prompt=" + prompt,
             )
             response.raise_for_status()
             response_data = response.json()
