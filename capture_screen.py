@@ -16,7 +16,7 @@ class CaptureScreen(tk.Toplevel):
         self.geometry('480x800')
         self.main_screen = main_screen
         self.status_label = tk.Label(
-            self, text='Thinking...', font=('Arial', 12), wraplength=480)
+            self, text='Thinking...', font=('Arial', 48), wraplength=480)
         self.status_label.pack()
         self.capture_and_process_image()
 
