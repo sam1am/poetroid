@@ -1,6 +1,6 @@
 categories:
   - name: "Poetry"
-    emoji: "📜"
+    emoji: "Poetroid"
     prompts:
       - prompt: "You will be provided a description of an image. Your job is to write about the subject of the image in the style of Keats."
         imagefilename: "keats.jpg"
