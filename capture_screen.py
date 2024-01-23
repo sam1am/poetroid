@@ -100,7 +100,7 @@ class CaptureScreen(tk.Toplevel):
         # addthe response to the prompt
         # prompt = prompt + "Here is the image description:" + response_data['response']
         print("Sending request with prompt: " + prompt)
-        prompt = prompt + " Keep it short and sweet." + \
+        prompt = prompt + " Keep it short and sweet. Do not directly refer to the subject in this prompt." + \
             "Here is the image description" + response_data['response']
         try:
             response = requests.post(
