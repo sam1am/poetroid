@@ -51,7 +51,7 @@ _Whisper "wensleydale," and watch as whimsical words weave within your window to
 
 ## Parts and Libraries
 
-Poetroid relies on a series of open-source libraries and models including:
+Poetroid is a mere expression of a series of amazing and incredible open-source libraries, models, and tools including:
 
 - Tkinter
 - Ollama
@@ -59,7 +59,7 @@ Poetroid relies on a series of open-source libraries and models including:
 - Llava (For vision. Configurable)
 - Mistral (For poertry. Configurable)
 
-Special thanks to the various open-source machine learning models (LLMs) and the supportive community on the `localllama` subreddit.
+Special thanks to various youtubers and the supportive community on the `localllama` subreddit.  
 
 _Exclaim "emmental," and experience enjambments that encapsulate your environment!_
 
