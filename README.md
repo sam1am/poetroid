@@ -2,7 +2,7 @@
 
 Welcome to the whimsical world of Poetroid, where technology waltzes with words! Morph the mundane memory-catcher into a mosaic maker of metaphors, marshaling mementos not in megapixels but in mellifluous meter. 
 
-![Poetroid Camera](./poetroid_device/poetroid.png)  
+![Poetroid Device](./poetroid_device/poetroid_device.png)  
 
 Call out "camembert," and collect your chronicles in crafted couplets!
 
@@ -24,9 +24,7 @@ Poetroid consists of two parts: Server and Client.
 
 ### Client Camera Device
 
-![Poetroid Device](./poetroid_device/poetroid.png)
-
-The client is the camera. It is powered by a Single Board Computer (SBC) running Linux and the software from the ./poetroid_device folder in this repo. 
+The client is the camera (pictured above). It is powered by a Single Board Computer (SBC) running Linux and the software from the ./poetroid_device folder in this repo. 
 
 *Installation:*
 
