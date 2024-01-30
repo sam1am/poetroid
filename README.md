@@ -10,9 +10,9 @@ _Call out "camembert," and collect your chronicles in crafted couplets!_
 
 Imagine capturing moments not in pixels, but in poems. With Poetroid, every snapshot becomes an ode, a sonnet, or a haiku. Crafted from a lunchbox, this little marvel uses self-hosted multi-modal models to peek into the soul of your surroundings and pen poems just for you.
 
-🎚 Dial a Poet: Twist the top-side dial to select your poet.
-🖨 Print Poetic Visions: Each poem is instantly printed out on a thermal printer for you to keep, scrapbook, or pin to the refrigerator.
-🔧 Off-the-shelf Heart: Built with accessible, DIY-friendly parts and a whole lot of love for the whole lot of you.
+🎚 Dial a Poet: Twist the top-side dial to select your poet. 
+🖨 Print Poetic Visions: Each poem is instantly printed out on a thermal printer for you to keep, scrapbook, pin to the refrigerator, put under you pillow, or simply gaze upon with unbounded joy. 
+🔧 Off-the-shelf Heart: Built with accessible, DIY-friendly parts and a whole lot of love for the whole lot of you. 
 
 _Speak "stilton," and summon stanzas that sketch the scenery in syllables!_
 
