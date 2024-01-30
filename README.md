@@ -1,6 +1,6 @@
 # Poetroid 📸✍️
 
-Welcome to the whimsical world of Poetroid, where technology waltzes with words! Morph the mundane memory-catcher into a mosaic maker of metaphors, marshaling mementos not in megapixels but in mellifluous meter. 
+Welcome to the whimsical world of Poetroid, where technology waltzes with words! Morph the mundane memory-catcher into a mosaic maker of metaphors, marshaling mementos not in megapixels but in mellifluous meter! 
 
 ![Poetroid Device](./poetroid_device/poetroid_device.png)  
 
@@ -8,7 +8,7 @@ Call out "camembert," and collect your chronicles in crafted couplets!
 
 ## What's Poetroid?
 
-Imagine capturing moments not in pixels, but in stanzas. With Poetroid, every snapshot becomes an ode, a sonnet, or a haiku. Crafted from a lunchbox, this little marvel uses self-hosted multi-modal models to peek into the soul of your surroundings and pen poems just for you.
+Imagine capturing moments not in pixels, but in poems. With Poetroid, every snapshot becomes an ode, a sonnet, or a haiku. Crafted from a lunchbox, this little marvel uses self-hosted multi-modal models to peek into the soul of your surroundings and pen poems just for you.
 
 🎚 Dial a Poet: Twist the top-side dial to select your poet.
 🖨 Print Poetic Visions: Each poem is instantly printed out on a thermal prinr for you to keep, scrapbook, or pin to the refrigerator.
