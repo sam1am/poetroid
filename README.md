@@ -24,6 +24,8 @@ Poetroid consists of two parts: Server and Client.
 
 ### Client Camera Device
 
+![Poetroid Device](./poetroid_device/poetroid.png)
+
 The client is the camera. It is powered by a Single Board Computer (SBC) running Linux and the software from the ./poetroid_device folder in this repo. 
 
 *Installation:*
@@ -52,3 +54,6 @@ Poetroid relies on a series of open-source libraries and models including:
 - Mistral (For poertry. Configurable)
 
 Special thanks to the various open-source machine learning models (LLMs) and the supportive community on the `localllama` subreddit.
+
+## License
+The heartcrafted code of Poetroid pirouettes under the Apache License 2.0.
