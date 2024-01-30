@@ -12,7 +12,7 @@ Imagine capturing moments not in pixels, but in poems. With Poetroid, every snap
 
 🎚 Dial a Poet: Twist the top-side dial to select your poet. 
 🖨 Print Poetic Visions: Each poem is instantly printed out on a thermal printer for you to keep, scrapbook, pin to the refrigerator, put under you pillow, or simply gaze upon with unbounded joy. 
-🔧 Off-the-shelf Heart: Built with accessible, DIY-friendly parts and a whole lot of love for the whole lot of you. 
+🔧 Off-the-shelf Heart: Built with accessible, DIY-friendly parts and a whole lot of love from and for the whole lot of you.
 
 _Speak "stilton," and summon stanzas that sketch the scenery in syllables!_
 
