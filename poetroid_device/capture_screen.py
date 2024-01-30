@@ -81,7 +81,7 @@ class CaptureScreen(tk.Toplevel):
         # print("Sending request with prompt: " + prompt)
         try:
             response = requests.post(
-                "https://roast.wayr.app/behold/",
+                "https://roast.wayr.app/behold",
                 data={
                     "prompt": "Describe this image in as much detail as possible. Be as verbose as possible. List every item you see and describe it verbosely.",
                     "file": base64_string

@@ -1,10 +1,7 @@
 #!/bin/bash
 
-# Define the app's directory
-APP_DIR="/home/sam/poetroid"
-
-# Change to the app's directory
-cd $APP_DIR
+# Get th current directory
+APP_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 # Sync with git
 git pull
