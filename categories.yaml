@@ -55,7 +55,7 @@ categories:
         imagefilename: "slapstick.jpg"
 
   - name: "Scientific"
-    emoji: "🔬"
+    emoji: "Science"
     # emoji: 'Look'
     prompts:
       - prompt: "Describe the scientific phenomena present in this scene."
@@ -70,7 +70,7 @@ categories:
         imagefilename: "physics.jpg"
 
   - name: "Other"
-    emoji: "🌀"
+    emoji: "Otro"
     # emoji: '?'
     prompts:
       - prompt: "Write a compliment about the subject of this photo."
