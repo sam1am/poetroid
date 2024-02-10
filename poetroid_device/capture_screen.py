@@ -133,7 +133,7 @@ class CaptureScreen(tk.Toplevel):
 
     def reset_to_main(self):
         # self.master.mainloop()  # Restart the tkinter mainloop before destroy
-        self.capture_initiated = False
+        self.main_screen.capture_initiated = False
         self.destroy()  # Close the capture screen and reset
         self.main_screen.update_ui()
 
