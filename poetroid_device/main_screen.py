@@ -29,34 +29,37 @@ class MainScreen(tk.Frame):
         self.master.bind('<s>', self.shutter_key_down)
         self.master.bind('m', self.reset_app_event)  # Bind 'm' as a reset key
 
-        self.check_network_connection()
+        # self.check_network_connection()
 
     def configure_layout(self):
         self.master.title('POETROID')
         self.pack(fill=tk.BOTH, expand=True)
 
-        self.title_bar = tk.Label(self, text='POETROID', font=('Arial', 24))
-        self.title_bar.pack(side=tk.TOP, fill=tk.X)
+        if not hasattr(self, 'title_bar'):
+            self.title_bar = tk.Label(
+                self, text='POETROID', font=('Arial', 24))
+            self.title_bar.pack(side=tk.TOP, fill=tk.X)
 
-        self.category_panel = tk.Frame(self, borderwidth=5, relief='solid')
+        if not hasattr(self, 'category_panel'):
+            self.category_panel = tk.Frame(self, borderwidth=5, relief='solid')
+            self.category_emoji = tk.Label(
+                self.category_panel, font=('Arial', 100))
+            self.category_emoji.pack()
+
+        if not hasattr(self, 'item_panel'):
+            self.item_panel = tk.Frame(self, borderwidth=5, relief='solid')
+            self.item_image_label = tk.Label(self.item_panel)
+            self.item_image_label.pack()
+
+        if not hasattr(self, 'controls_panel'):
+            self.controls_panel = tk.Frame(self)
+            self.controls_panel.pack(side=tk.BOTTOM, fill=tk.X)
+            self.printer_icon = tk.Label(
+                self.controls_panel, text='Print', font=('Arial', 16))
+            self.printer_icon.pack(side=tk.LEFT)
+
         self.category_panel.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
-
-        self.category_emoji = tk.Label(
-            self.category_panel, font=('Arial', 100))
-        self.category_emoji.pack()
-
-        self.item_panel = tk.Frame(self, borderwidth=5, relief='solid')
         self.item_panel.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
-
-        self.item_image_label = tk.Label(self.item_panel)
-        self.item_image_label.pack()
-
-        self.controls_panel = tk.Frame(self)
-        self.controls_panel.pack(side=tk.BOTTOM, fill=tk.X)
-
-        self.printer_icon = tk.Label(
-            self.controls_panel, text='Print', font=('Arial', 16))
-        self.printer_icon.pack(side=tk.LEFT)
 
     def load_configuration(self):
         with open('./categories.yaml', 'r') as file:
@@ -65,16 +68,19 @@ class MainScreen(tk.Frame):
             self.models = yaml.safe_load(file)['models']
 
     def update_ui(self):
-        self.configure_layout()  # Reconfigure the layout to update border colors dynamically
+        # Update category emoji
         emoji_name = self.categories[self.current_category_index]['emoji']
         self.category_emoji['text'] = emoji_name
 
+        # Update item image
         item = self.categories[self.current_category_index]['prompts'][self.current_item_index]
         img_path = os.path.join('./imgs', item['imagefilename'])
         self.update_image(img_path)
 
+        # Update print status
         self.printer_icon['text'] = 'Print Enabled' if self.printing_enabled else 'Print Disabled'
 
+    
     def update_image(self, img_path):
         img = Image.open(img_path)
         photo = ImageTk.PhotoImage(img)

@@ -9,8 +9,8 @@ class PoetroidApp(tk.Tk):
         super().__init__()
         self.geometry('480x800')
         self.main_screen = MainScreen(self)
-        self.attributes('-fullscreen', True)
-        self.check_network_connection()
+        # self.attributes('-fullscreen', True)
+        # self.check_network_connection()
 
     def check_network_connection(self):
         def ping():
