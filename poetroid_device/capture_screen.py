@@ -51,6 +51,8 @@ class CaptureScreen(tk.Toplevel):
         binary_image = buffer.tobytes()
         self.status_label['text'] = 'Processing...'
         print('\a')
+        # Close the video capture
+        cap.release()
 
         # Generate a safe UUID for the filename
         unique_filename = str(uuid.uuid4()) + '.jpg'
@@ -115,8 +117,7 @@ class CaptureScreen(tk.Toplevel):
             self.status_label['text'] = 'Failed to get response.'
             print(e)
 
-        # Close the video capture
-        cap.release()
+        
 
     def display_response(self, response_text):
         # self.status_label['text'] = response_text
