@@ -2,3 +2,4 @@ pillow
 requests
 opencv-python
 pyyaml
+opencv

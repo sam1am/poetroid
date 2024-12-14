@@ -7,8 +7,6 @@ import time
 import uuid
 import os
 import logging
-# import sys
-
 
 class CaptureScreen(tk.Toplevel):
     def __init__(self, master, main_screen):
@@ -21,7 +19,6 @@ class CaptureScreen(tk.Toplevel):
         self.capture_and_process_image()
 
     def capture_and_process_image(self):
-        # Update the status label immediately
         self.status_label['text'] = 'Thinking...'
         self.update()  
         camera_index = 0  
@@ -33,10 +30,9 @@ class CaptureScreen(tk.Toplevel):
                 self.status_label['text'] = 'Error: Could not open camera.'
                 return
 
-        warm_up_time = 2  # Warm-up time in seconds
+        warm_up_time = 2
         start_time = time.time()
 
-        # Warm-up phase: Capture and discard frames for the warm-up period
         print("Warming up the camera...")
         self.status_label['text'] = 'Warming up the camera...'
         while time.time() - start_time < warm_up_time:
@@ -45,84 +41,46 @@ class CaptureScreen(tk.Toplevel):
                 self.status_label['text'] = "Error: Could not read frame from the camera during warm-up."
                 cap.release()
                 return
+        
         self.status_label['text'] = 'Ready to capture.'
         _, buffer = cv2.imencode('.jpg', frame)
         self.status_label['text'] = 'Capturing...'
         binary_image = buffer.tobytes()
         self.status_label['text'] = 'Processing...'
         print('\a')
-        # Close the video capture
         cap.release()
 
-        # Generate a safe UUID for the filename
         unique_filename = str(uuid.uuid4()) + '.jpg'
         uploads_dir = './uploads'
         if not os.path.exists(uploads_dir):
-            # Create the uploads directory if it doesn't exist
             os.makedirs(uploads_dir)
 
         file_path = os.path.join(uploads_dir, unique_filename)
-        # Account for upside down camera.
         frame = cv2.rotate(frame, cv2.ROTATE_180)
-        # Save the image to the ./uploads directory with the UUID filename
         with open(file_path, 'wb') as f:
             f.write(binary_image)
-
-        main_screen = self.main_screen
 
         category_index = self.main_screen.current_category_index
         item_index = self.main_screen.current_item_index
         prompt = self.main_screen.categories[category_index]['prompts'][item_index]['prompt']
-        # get the file as a binary string
-        with open(file_path, 'rb') as f:
-            file_data = f.read()
-        # encode the binary string as base64
-        base64_data = base64.b64encode(file_data)
-        # decode the base64 string into utf-8
-        base64_string = base64_data.decode('utf-8')
-        # print("Sending request with prompt: " + prompt)
+
         try:
             response = requests.post(
-                "https://roast.wayr.app/behold",
-                data={
-                    "prompt": "Describe this image in as much detail as possible. Be as verbose as possible. List every item you see and describe it verbosely.",
-                    "file": base64_string
-                },
-                # Open and send the image file
-                files={'file': open(file_path, 'rb')},
+                "http://localhost:3090/generate_poem",
+                data={"prompt": prompt},
+                files={"file": open(file_path, 'rb')},
                 timeout=60
             )
             response.raise_for_status()
             response_data = response.json()
-            print("Image description:" + response_data['response'])
-        except requests.RequestException as e:
-            self.status_label['text'] = 'Failed to get response.'
-            print(e)
-
-        # addthe response to the prompt
-        # prompt = prompt + "Here is the image description:" + response_data['response']
-        print("Sending request with prompt: " + prompt)
-        prompt = prompt + " Keep it short and sweet. Do not directly refer to the subject in this prompt." + \
-            "Here is the image description" + response_data['response']
-        try:
-            response = requests.post(
-                # make prompt url safe
-                "https://roast.wayr.app/infer/?prompt=" + prompt,
-            )
-            response.raise_for_status()
-            response_data = response.json()
-            print("Final result: " + response_data['response'])
+            print("Generated poem: " + response_data['response'])
             self.display_response(response_data['response'])
         except requests.RequestException as e:
             self.status_label['text'] = 'Failed to get response.'
             print(e)
 
-        
-
     def display_response(self, response_text):
-        # self.status_label['text'] = response_text
-        self.status_label['wraplength'] = 480  # Wrap the result
-        # Handle printing
+        self.status_label['wraplength'] = 480
         if self.main_screen.printing_enabled:
             try:
                 with open('/dev/usb/lp0', 'w') as printer:
@@ -133,20 +91,6 @@ class CaptureScreen(tk.Toplevel):
         self.reset_to_main()
 
     def reset_to_main(self):
-        # self.master.mainloop()  # Restart the tkinter mainloop before destroy
         self.main_screen.capture_initiated = False
-        self.destroy()  # Close the capture screen and reset
+        self.destroy()
         self.main_screen.update_ui()
-
-    def display_test_image(self, image_path):
-        img = Image.open(image_path)
-        photo = ImageTk.PhotoImage(img)
-        label = tk.Label(self, image=photo)
-        label.image = photo  # Keep a reference.
-        label.pack()
-        self.show_reset_button()
-
-    def show_reset_button(self):
-        reset_button = tk.Button(
-            self, text='Reset', command=self.reset_to_main)
-        reset_button.pack()
