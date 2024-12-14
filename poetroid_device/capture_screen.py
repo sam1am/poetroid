@@ -7,6 +7,11 @@ import time
 import uuid
 import os
 import logging
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
+SERVER_BASEURL = os.getenv('SERVER_BASEURL', 'http://localhost:3090')
 
 class CaptureScreen(tk.Toplevel):
     def __init__(self, master, main_screen):
@@ -17,6 +22,7 @@ class CaptureScreen(tk.Toplevel):
             self, text='Thinking...', font=('Arial', 48), wraplength=480)
         self.status_label.pack()
         self.capture_and_process_image()
+
 
     def capture_and_process_image(self):
         self.status_label['text'] = 'Thinking...'
@@ -66,7 +72,7 @@ class CaptureScreen(tk.Toplevel):
 
         try:
             response = requests.post(
-                "http://localhost:3090/generate_poem",
+                f"{SERVER_BASEURL}/generate_poem",
                 data={"prompt": prompt},
                 files={"file": open(file_path, 'rb')},
                 timeout=60
@@ -78,6 +84,7 @@ class CaptureScreen(tk.Toplevel):
         except requests.RequestException as e:
             self.status_label['text'] = 'Failed to get response.'
             print(e)
+
 
     def display_response(self, response_text):
         self.status_label['wraplength'] = 480
