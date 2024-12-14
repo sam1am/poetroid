@@ -1,0 +1,6 @@
+# requirements.txt
+fastapi
+python-multipart
+pillow
+uvicorn
+ollama
