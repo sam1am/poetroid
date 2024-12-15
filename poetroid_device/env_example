@@ -1,1 +1,2 @@
 SERVER_BASEURL=http://localhost:3090
+CAMERA_ROTATE=false

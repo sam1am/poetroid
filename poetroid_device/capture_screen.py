@@ -12,6 +12,8 @@ from dotenv import load_dotenv
 # Load environment variables
 load_dotenv()
 SERVER_BASEURL = os.getenv('SERVER_BASEURL', 'http://localhost:3090')
+# In capture_screen.py, add near the top:
+CAMERA_ROTATE = os.getenv('CAMERA_ROTATE', 'false').lower() == 'true'
 
 class CaptureScreen(tk.Toplevel):
     def __init__(self, master, main_screen):
@@ -53,6 +55,8 @@ class CaptureScreen(tk.Toplevel):
                 return
         
         self.status_label['text'] = 'Ready to capture.'
+        if CAMERA_ROTATE:
+            frame = cv2.rotate(frame, cv2.ROTATE_180)
         _, buffer = cv2.imencode('.jpg', frame)
         self.status_label['text'] = 'Capturing...'
         binary_image = buffer.tobytes()
@@ -66,7 +70,9 @@ class CaptureScreen(tk.Toplevel):
             os.makedirs(uploads_dir)
 
         file_path = os.path.join(uploads_dir, unique_filename)
-        frame = cv2.rotate(frame, cv2.ROTATE_180)
+        
+        
+            
         with open(file_path, 'wb') as f:
             f.write(binary_image)
 
