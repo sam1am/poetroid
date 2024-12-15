@@ -23,6 +23,10 @@ class CaptureScreen(tk.Toplevel):
         self.status_label.pack()
         self.capture_and_process_image()
 
+    def auto_reset(self):
+        self.main_screen.capture_initiated = False
+        self.destroy()
+        self.main_screen.update_ui()
 
     def capture_and_process_image(self):
         self.status_label['text'] = 'Thinking...'
@@ -84,7 +88,8 @@ class CaptureScreen(tk.Toplevel):
         except requests.RequestException as e:
             self.status_label['text'] = 'Failed to get response.'
             print(e)
-
+            # Schedule auto-reset after 3 seconds
+            self.after(3000, self.auto_reset)
 
     def display_response(self, response_text):
         self.status_label['wraplength'] = 480
