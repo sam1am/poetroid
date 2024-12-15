@@ -1,0 +1,11 @@
+[Unit]
+Description=Poetroid Startup Service
+After=network.target
+
+[Service]
+ExecStart=/home/sam/poetroid/poetroid_app/start.sh
+User=pi
+WorkingDirectory=/home/sam/poetroid/poetroid_app
+
+[Install]
+WantedBy=multi-user.target
