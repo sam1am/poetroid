@@ -3,3 +3,4 @@ requests
 opencv-python
 pyyaml
 opencv
+python-dotenv
