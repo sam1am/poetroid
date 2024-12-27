@@ -11,7 +11,7 @@ from dotenv import load_dotenv
 
 # Load environment variables
 load_dotenv()
-SERVER_BASEURL = os.getenv('SERVER_BASEURL', 'http://localhost:3090')
+SERVER_BASEURL = os.getenv('SERVER_BASEURL', 'https://service.wayr.app')
 # In capture_screen.py, add near the top:
 CAMERA_ROTATE = os.getenv('CAMERA_ROTATE', 'false').lower() == 'true'
 
@@ -31,8 +31,8 @@ class CaptureScreen(tk.Toplevel):
         self.main_screen.update_ui()
 
     def capture_and_process_image(self):
-        self.status_label['text'] = 'Thinking...'
-        self.update()  
+        # self.status_label['text'] = 'Warming Up...'
+        # self.update()  
         camera_index = 0  
         cap = cv2.VideoCapture(camera_index)
         if not cap.isOpened():
@@ -44,23 +44,19 @@ class CaptureScreen(tk.Toplevel):
 
         warm_up_time = 2
         start_time = time.time()
-
-        print("Warming up the camera...")
-        self.status_label['text'] = 'Warming up the camera...'
+        # self.status_label['text'] = 'Warming up the camera...'
         while time.time() - start_time < warm_up_time:
             ret, frame = cap.read()
             if not ret:
                 self.status_label['text'] = "Error: Could not read frame from the camera during warm-up."
                 cap.release()
                 return
-        
-        self.status_label['text'] = 'Ready to capture.'
+        self.status_label['text'] = 'Processing...'
+        self.update()  
         if CAMERA_ROTATE:
             frame = cv2.rotate(frame, cv2.ROTATE_180)
         _, buffer = cv2.imencode('.jpg', frame)
-        self.status_label['text'] = 'Capturing...'
-        binary_image = buffer.tobytes()
-        self.status_label['text'] = 'Processing...'
+        binary_image = buffer.tobytes() 
         print('\a')
         cap.release()
 
@@ -70,9 +66,6 @@ class CaptureScreen(tk.Toplevel):
             os.makedirs(uploads_dir)
 
         file_path = os.path.join(uploads_dir, unique_filename)
-        
-        
-            
         with open(file_path, 'wb') as f:
             f.write(binary_image)
 

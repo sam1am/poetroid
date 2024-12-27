@@ -8,9 +8,6 @@ from PIL import Image
 # Load environment variables from a .env file located in the same directory as this script
 load_dotenv()
 
-# # Set OpenAI API key
-# OpenAI.api_key = os.getenv('OPENAI_API_KEY')
-
 client = OpenAI()
 client.api_key = os.getenv('OPENAI_API_KEY')
 
@@ -57,9 +54,9 @@ def generate_image(prompt_text, imagefilename, img_directory='./imgs'):
         im = im.resize((300, 300))
         im.save(os.path.join(img_directory, imagefilename))
         
-        print(f"Generated image for '{prompt_text}' and saved as '{imagefilename}'.")
+        print(f"Generated image and saved as '{imagefilename}'.")
     except Exception as e:
-        print(f"Failed to generate image for prompt '{prompt_text}': {e}")
+        print(f"Failed to generate image: {e}")
 
 # Download the image to a local file
 def download_image(image_url, local_path):
@@ -76,12 +73,12 @@ def main():
     
     for category in categories['categories']:
         for prompt in category['prompts']:
-            print(f"Checking image for prompt: {prompt['prompt']}")
             imagefilename = prompt['imagefilename']
             if not image_exists(imagefilename):
-                # Generate a dark mode retro pixel image using the DALL-E 3 API
-                dall_e_prompt = f"generate a dark mode retro pixel art style image containing no text of the entity whose job description is: {prompt['prompt']}."
-                print(f"Image '{imagefilename}' not found, generating with prompt: {dall_e_prompt}")
+                print(f"\nImage file '{imagefilename}' needs to be generated.")
+                user_prompt = input("Please enter the prompt for this image: ")
+                dall_e_prompt = f"generate a dark mode retro pixel art style image containing no text of {user_prompt}"
+                print(f"\nGenerating image with prompt: {dall_e_prompt}")
                 generate_image(dall_e_prompt, imagefilename)
 
 if __name__ == '__main__':
