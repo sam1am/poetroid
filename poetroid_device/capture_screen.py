@@ -11,7 +11,7 @@ from dotenv import load_dotenv
 
 # Load environment variables
 load_dotenv()
-SERVER_BASEURL = os.getenv('SERVER_BASEURL', 'https://service.wayr.app')
+SERVER_BASEURL = os.getenv('SERVER_BASEURL', 'http://localhost:3090')
 # In capture_screen.py, add near the top:
 CAMERA_ROTATE = os.getenv('CAMERA_ROTATE', 'false').lower() == 'true'
 
@@ -72,6 +72,7 @@ class CaptureScreen(tk.Toplevel):
         category_index = self.main_screen.current_category_index
         item_index = self.main_screen.current_item_index
         prompt = self.main_screen.categories[category_index]['prompts'][item_index]['prompt']
+        # prompt = "You are poetroid, a poetry writing camera. " + prompt + " Be sure to include elements unique to the person or people in the image."
 
         try:
             response = requests.post(
