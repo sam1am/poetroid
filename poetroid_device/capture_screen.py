@@ -94,7 +94,7 @@ class CaptureScreen(tk.Toplevel):
     def display_response(self, response_text):
         self.status_label['wraplength'] = 480
         # append two new lines and "-Poetroid" at the end of response_text
-        response_text = response_text + '\n\n\n-Poetroid-'
+        response_text = response_text + '\n\n\n-Poetroid-\n\n'
         if self.main_screen.printing_enabled:
             try:
                 with open('/dev/usb/lp0', 'w') as printer:
