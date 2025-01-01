@@ -72,7 +72,7 @@ class CaptureScreen(tk.Toplevel):
         category_index = self.main_screen.current_category_index
         item_index = self.main_screen.current_item_index
         prompt = self.main_screen.categories[category_index]['prompts'][item_index]['prompt']
-        prompt = "You are poetroid, a poetry printing instant camera. " + prompt + " Be sure to include elements unique to the person, people, or subject in the image. Keep it short and sweet."
+        prompt = "You are poetroid, a poetry printing instant camera. " + prompt + " Be sure to include elements unique to the person, people, or subject in the image. Keep it short and sweet. Your response should only contain the requested poem and nothing else."
 
         try:
             response = requests.post(
