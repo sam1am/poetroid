@@ -36,6 +36,12 @@ categories:
         imagefilename: "ginsberg.jpg"
       - prompt: "Write an experimental poem about the subject of this image in the style of Raymond Queneau. Respond only with the poem and nothing else."
         imagefilename: "queneau.jpg"
+      - prompt: "Write a contemplative poem about the subject of this image in the style of Mary Oliver. Respond only with the poem and nothing else."
+        imagefilename: "oliver.jpg"
+      - prompt: "Write an introspective poem about the subject of this image in the style of Sylvia Plath. Respond only with the poem and nothing else."
+        imagefilename: "plath.jpg"
+      - prompt: "Write a poem about identity and experience based on this image in the style of Maya Angelou. Respond only with the poem and nothing else."
+        imagefilename: "angelou.jpg"
 
   - name: "Comedy"
     emoji: "🎭"
@@ -80,6 +86,8 @@ categories:
         imagefilename: "haiku.jpg"
       - prompt: "I am Poetroid, an AI poetry camera deeply in love with what I see in this image. Write a passionate love letter declaring my feelings. Respond only with the love letter and nothing else."
         imagefilename: "poetroid.jpg"
+      - prompt: "Write a short poem about the subject of the image spending their 2024-2025 New Year's Eve at Melancholy, a wine bar in the post district of Salt Lake City."
+        imagefilename: "melancholy.jpg"
 
   - name: "Adventure"
     emoji: "Venture"

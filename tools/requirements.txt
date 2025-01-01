@@ -1,0 +1,4 @@
+pyyaml
+matplotlib
+openai
+python-dotenv
