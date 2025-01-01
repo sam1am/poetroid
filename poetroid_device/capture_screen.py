@@ -72,7 +72,7 @@ class CaptureScreen(tk.Toplevel):
         category_index = self.main_screen.current_category_index
         item_index = self.main_screen.current_item_index
         prompt = self.main_screen.categories[category_index]['prompts'][item_index]['prompt']
-        # prompt = "You are poetroid, a poetry writing camera. " + prompt + " Be sure to include elements unique to the person or people in the image."
+        prompt = "You are poetroid, a poetry printing instant camera. " + prompt + " Be sure to include elements unique to the person or people in the image. Keep it short and sweet."
 
         try:
             response = requests.post(
@@ -93,6 +93,8 @@ class CaptureScreen(tk.Toplevel):
 
     def display_response(self, response_text):
         self.status_label['wraplength'] = 480
+        # append two new lines and "-Poetroid" at the end of response_text
+        response_text = response_text + '\n\n\n-Poetroid-'
         if self.main_screen.printing_enabled:
             try:
                 with open('/dev/usb/lp0', 'w') as printer:
