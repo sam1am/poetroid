@@ -86,7 +86,7 @@ categories:
         imagefilename: "haiku.jpg"
       - prompt: "I am Poetroid, an AI poetry camera deeply in love with what I see in this image. Write a passionate love letter declaring my feelings. Respond only with the love letter and nothing else."
         imagefilename: "poetroid.jpg"
-      - prompt: "Write a short poem about the subject of the image, who is spending their 2025-2026 New Year's Eve at Melancholy, a wine and coktail bar in the post district of Salt Lake City. Make it positive and uplifting."
+      - prompt: "Write a short poem about the subject of the image, who is spending their 2025-2026 New Year's Eve at Melancholy, a wine and cocktail bar in the post district of Salt Lake City. Make it positive and uplifting and wish them a happy new year."
         imagefilename: "melancholy.jpg"
 
   - name: "Adventure"
