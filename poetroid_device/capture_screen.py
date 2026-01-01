@@ -112,8 +112,17 @@ class CaptureScreen(tk.Toplevel):
         response_text = response_text + '\n\n\n-Poetroid-\n\n'
         if self.main_screen.printing_enabled:
             try:
-                with open('/dev/usb/lp0', 'w') as printer:
-                    printer.write(response_text + '\n\n\n\n\n')
+                # Replace Unicode quotes/apostrophes with ASCII equivalents
+                response_text = response_text.replace('\u2018', "'")  # Left single quote
+                response_text = response_text.replace('\u2019', "'")  # Right single quote/apostrophe
+                response_text = response_text.replace('\u201c', '"')  # Left double quote
+                response_text = response_text.replace('\u201d', '"')  # Right double quote
+                response_text = response_text.replace('\u2013', '-')  # En dash
+                response_text = response_text.replace('\u2014', '-')  # Em dash
+                response_text = response_text.replace('\u2026', '...')  # Ellipsis
+
+                with open('/dev/usb/lp0', 'wb') as printer:
+                    printer.write((response_text + '\n\n\n\n\n').encode('ascii', errors='replace'))
             except IOError as e:
                 logging.error(f'Print: Failed to print to /dev/usb/lp0: {e}')
                 self.status_label['text'] = 'Failed to print.'
