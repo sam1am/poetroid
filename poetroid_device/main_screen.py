@@ -50,6 +50,8 @@ class MainScreen(tk.Frame):
             self.item_panel = tk.Frame(self, borderwidth=5, relief='solid')
             self.item_image_label = tk.Label(self.item_panel)
             self.item_image_label.pack()
+            self.filename_label = tk.Label(self.item_panel, font=('Arial', 12))
+            self.filename_label.pack()
 
         if not hasattr(self, 'controls_panel'):
             self.controls_panel = tk.Frame(self)
@@ -75,7 +77,11 @@ class MainScreen(tk.Frame):
         # Update item image
         item = self.categories[self.current_category_index]['prompts'][self.current_item_index]
         img_path = os.path.join('./imgs', item['imagefilename'])
+        img_name = os.path.splitext(os.path.basename(img_path))[0]
         self.update_image(img_path)
+        
+        # Update filename label
+        self.filename_label['text'] = img_name
 
         # Update print status
         self.printer_icon['text'] = 'Print Enabled' if self.printing_enabled else 'Print Disabled'
@@ -141,7 +147,7 @@ class MainScreen(tk.Frame):
         if not self.capture_initiated:
             self.capture_initiated = True
             self.capture_screen = CaptureScreen(self.master, self)
-            self.master.after(0, self.capture_screen.capture_and_process_image)
+            # self.master.after(0, self.capture_screen.capture_and_process_image)
         else:
             print("Capture is already initiated or capture_screen still exists.")
 

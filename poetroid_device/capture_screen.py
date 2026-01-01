@@ -36,8 +36,8 @@ class CaptureScreen(tk.Toplevel):
         self.main_screen.update_ui()
 
     def capture_and_process_image(self):
-        self.status_label['text'] = 'Thinking...'
-        self.update()  
+        # self.status_label['text'] = 'Warming Up...'
+        # self.update()  
         camera_index = 0  
         cap = cv2.VideoCapture(camera_index)
         if not cap.isOpened():
@@ -49,17 +49,15 @@ class CaptureScreen(tk.Toplevel):
 
         warm_up_time = 2
         start_time = time.time()
-
-        print("Warming up the camera...")
-        self.status_label['text'] = 'Warming up the camera...'
+        # self.status_label['text'] = 'Warming up the camera...'
         while time.time() - start_time < warm_up_time:
             ret, frame = cap.read()
             if not ret:
                 self.status_label['text'] = "Error: Could not read frame from the camera during warm-up."
                 cap.release()
                 return
-        
-        self.status_label['text'] = 'Ready to capture.'
+        self.status_label['text'] = 'Processing...'
+        self.update()  
         if CAMERA_ROTATE:
             frame = cv2.rotate(frame, cv2.ROTATE_180)
         _, buffer = cv2.imencode('.jpg', frame)
@@ -83,15 +81,13 @@ class CaptureScreen(tk.Toplevel):
             os.makedirs(uploads_dir)
 
         file_path = os.path.join(uploads_dir, unique_filename)
-        
-        
-            
         with open(file_path, 'wb') as f:
             f.write(binary_image)
 
         category_index = self.main_screen.current_category_index
         item_index = self.main_screen.current_item_index
         prompt = self.main_screen.categories[category_index]['prompts'][item_index]['prompt']
+        prompt = "You are poetroid, a poetry printing instant camera. " + prompt + " Be sure to include elements unique to the person, people, or subject in the image. Keep it short and sweet. Your response should only contain the requested poem and nothing else."
 
         try:
             response = requests.post(
@@ -112,6 +108,8 @@ class CaptureScreen(tk.Toplevel):
 
     def display_response(self, response_text):
         self.status_label['wraplength'] = 480
+        # append two new lines and "-Poetroid" at the end of response_text
+        response_text = response_text + '\n\n\n-Poetroid-\n\n'
         if self.main_screen.printing_enabled:
             try:
                 with open('/dev/usb/lp0', 'w') as printer:

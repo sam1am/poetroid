@@ -4,12 +4,10 @@ from openai import OpenAI
 from dotenv import load_dotenv
 import requests
 from PIL import Image
+import matplotlib.pyplot as plt
 
 # Load environment variables from a .env file located in the same directory as this script
 load_dotenv()
-
-# # Set OpenAI API key
-# OpenAI.api_key = os.getenv('OPENAI_API_KEY')
 
 client = OpenAI()
 client.api_key = os.getenv('OPENAI_API_KEY')
@@ -20,11 +18,26 @@ def load_yaml_file(filename):
         return yaml.safe_load(f)
 
 # Check if image exists locally
-def image_exists(imagefilename, img_directory='./imgs'):
+def image_exists(imagefilename, img_directory='../poetroid_device/imgs'):
     return os.path.isfile(os.path.join(img_directory, imagefilename))
 
+# Display image and get approval
+def display_and_approve_image(imagefilename, img_directory='../poetroid_device/imgs'):
+    img_path = os.path.join(img_directory, imagefilename)
+    img = Image.open(img_path)
+    plt.figure(figsize=(8, 8))
+    plt.imshow(img)
+    plt.axis('off')
+    plt.show()
+    
+    while True:
+        response = input("Approve this image? (y/n): ").lower()
+        if response in ['y', 'n']:
+            return response == 'y'
+        print("Please enter 'y' for yes or 'n' for no.")
+
 # Generate image using OpenAI's DALL-E 3 API
-def generate_image(prompt_text, imagefilename, img_directory='./imgs'):
+def generate_image(prompt_text, imagefilename, img_directory='../poetroid_device/imgs'):
     try:
         headers = {
             'Authorization': f'Bearer {os.getenv("OPENAI_API_KEY")}',
@@ -57,9 +70,14 @@ def generate_image(prompt_text, imagefilename, img_directory='./imgs'):
         im = im.resize((300, 300))
         im.save(os.path.join(img_directory, imagefilename))
         
-        print(f"Generated image for '{prompt_text}' and saved as '{imagefilename}'.")
+        print(f"Generated image and saved as '{imagefilename}'.")
+        
+        # Display image and get approval
+        return display_and_approve_image(imagefilename, img_directory)
+        
     except Exception as e:
-        print(f"Failed to generate image for prompt '{prompt_text}': {e}")
+        print(f"Failed to generate image: {e}")
+        return False
 
 # Download the image to a local file
 def download_image(image_url, local_path):
@@ -72,17 +90,26 @@ def download_image(image_url, local_path):
 
 # Main function to check images and generate them if necessary
 def main():
-    categories = load_yaml_file('categories.yaml')
+    categories = load_yaml_file('../poetroid_device/categories.yaml')
     
     for category in categories['categories']:
         for prompt in category['prompts']:
-            print(f"Checking image for prompt: {prompt['prompt']}")
             imagefilename = prompt['imagefilename']
             if not image_exists(imagefilename):
-                # Generate a dark mode retro pixel image using the DALL-E 3 API
-                dall_e_prompt = f"generate a dark mode retro pixel art style image containing no text of the entity whose job description is: {prompt['prompt']}."
-                print(f"Image '{imagefilename}' not found, generating with prompt: {dall_e_prompt}")
-                generate_image(dall_e_prompt, imagefilename)
+                print(f"\nImage file '{imagefilename}' needs to be generated.")
+                
+                while True:
+                    user_prompt = input("Please enter the prompt for this image: ")
+                    dall_e_prompt = f"generate a dark mode retro pixel art style image containing no text of {user_prompt}"
+                    print(f"\nGenerating image with prompt: {dall_e_prompt}")
+                    
+                    if generate_image(dall_e_prompt, imagefilename):
+                        print("Image approved and saved.")
+                        break
+                    else:
+                        print("Image rejected. Let's generate a new one.")
+            else:
+                print(f"\nImage file '{imagefilename}' already exists.")
 
 if __name__ == '__main__':
     main()
