@@ -1,3 +1,7 @@
+server/models/*
+server/uploads/*
+.summary_files/
+.claude/
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

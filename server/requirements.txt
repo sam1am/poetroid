@@ -3,4 +3,4 @@ fastapi
 python-multipart
 pillow
 uvicorn
-ollama
+huggingface-hub

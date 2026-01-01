@@ -8,6 +8,7 @@ import uuid
 import os
 import logging
 from dotenv import load_dotenv
+import pygame
 
 # Load environment variables
 load_dotenv()
@@ -23,6 +24,10 @@ class CaptureScreen(tk.Toplevel):
         self.status_label = tk.Label(
             self, text='Thinking...', font=('Arial', 48), wraplength=480)
         self.status_label.pack()
+
+        # Initialize pygame mixer for sound playback
+        pygame.mixer.init()
+
         self.capture_and_process_image()
 
     def auto_reset(self):
@@ -60,6 +65,14 @@ class CaptureScreen(tk.Toplevel):
         _, buffer = cv2.imencode('.jpg', frame)
         self.status_label['text'] = 'Capturing...'
         binary_image = buffer.tobytes()
+
+        # Play click sound after capture
+        try:
+            click_sound = pygame.mixer.Sound('sfx/click.mp3')
+            click_sound.play()
+        except Exception as e:
+            logging.warning(f'Failed to play click sound: {e}')
+
         self.status_label['text'] = 'Processing...'
         print('\a')
         cap.release()

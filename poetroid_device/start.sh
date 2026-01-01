@@ -4,6 +4,12 @@
 APP_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 PARENT_DIR="$(dirname "$APP_DIR")"
 
+cd "$APP_DIR"
+
+echo "APP_DIR: $APP_DIR"
+echo "PARENT_DIR: $PARENT_DIR"
+echo "Current working directory: $(pwd)"
+
 # Sync with git
 git pull
 
